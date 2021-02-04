@@ -1,82 +1,53 @@
-import Head from 'next/head'
-
+import {useState,useMemo} from 'react';
+import api from '../services/api';
+import {useRouter} from 'next/router'
 export default function Home() {
+  const router = useRouter()
+  const [image, setImage] = useState(null);
+  const preview = useMemo(() => {
+    return image ? URL.createObjectURL(image) : null;
+  }, [image]);
+  
+  async function handleUpload() {
+    try {
+      const data = new FormData()
+      data.append("file",image)
+      const response = await api.post('uploader',data)
+      router.push(`/success/${response.data.name.filename}`)
+    } catch (error) {
+      console.log(error.message)
+    }
+  }
+
+  if(image !== null) {
+    handleUpload()
+  }
+
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-2">
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <main className="flex flex-col items-center justify-center flex-1 px-20 text-center">
-        <h1 className="text-6xl font-bold">
-          Welcome to{' '}
-          <a className="text-blue-600" href="https://nextjs.org">
-            Next.js!
-          </a>
-        </h1>
-
-        <p className="mt-3 text-2xl">
-          Get started by editing{' '}
-          <code className="p-3 font-mono text-lg bg-gray-100 rounded-md">
-            pages/index.js
-          </code>
-        </p>
-
-        <div className="flex flex-wrap items-center justify-around max-w-4xl mt-6 sm:w-full">
-          <a
-            href="https://nextjs.org/docs"
-            className="p-6 mt-6 text-left border w-96 rounded-xl hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Documentation &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Find in-depth information about Next.js features and API.
-            </p>
-          </a>
-
-          <a
-            href="https://nextjs.org/learn"
-            className="p-6 mt-6 text-left border w-96 rounded-xl hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Learn &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Learn about Next.js in an interactive course with quizzes!
-            </p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className="p-6 mt-6 text-left border w-96 rounded-xl hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Examples &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Discover and deploy boilerplate example Next.js projects.
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className="p-6 mt-6 text-left border w-96 rounded-xl hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Deploy &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
-
-      <footer className="flex items-center justify-center w-full h-24 border-t">
-        <a
-          className="flex items-center justify-center"
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className="h-4 ml-2" />
-        </a>
-      </footer>
+    <div className="bg-gray-100 w-full h-screen flex justify-center items-center font-poppins ">
+      <div className="w-96 h-3/6 bg-white rounded-xl shadow-md">
+          <div className="text-center mt-6">
+            <h1 className="text-gray-900 font-bold">Envie Sua Foto</h1>
+            <p className="text-gray-500 mt-2">Nos formatos .jpeg .png</p>
+          </div>
+          <div  style={{ backgroundImage: `url(${preview})`,backgroundSize:'cover' }} className="w-80 relative mx-auto   mt-5  rounded-xl border-dashed hover:bg-blue-100 transition-all border-blue-200 border-2 h-56 flex-col flex items-center justify-center">
+          <div className={`flex flex-col h-full ${preview ? 'opacity-0' : ''} bg-bg-Image bg-no-repeat bg-center`}>
+            <input
+                  type="file"
+                  className="opacity-0 h-screen cursor-pointer"
+                  id="file"
+                  required
+                  onChange={e => setImage(e.target.files[0])}
+                />
+          <label htmlFor="file" className="text-gray-300 cursor-pointer left-8 absolute bottom-6">Drag And Drop your image here</label>
+          </div>
+          </div>
+          <div className="text-center">
+            <p className="mt-4 mb-4">Or</p>
+            <input type="file" onChange={(e)=>setImage(e.target.files[0])} id="file2" className="hidden"/>
+            <label htmlFor="file2" className="bg-blue-500 cursor-pointer px-4 p-2 hover:bg-blue-700 transition-all text-white rounded-lg">Choose A File</label>
+          </div>
+      </div>
     </div>
   )
 }
