@@ -39,13 +39,13 @@ export default function Home() {
                   required
                   onChange={e => setImage(e.target.files[0])}
                 />
-          <label htmlFor="file" className="text-gray-300 cursor-pointer left-8 absolute bottom-6">Drag And Drop your image here</label>
+          <label htmlFor="file" className="text-gray-300 cursor-pointer left-8 absolute bottom-6">Arraste e solte sua imagem aqui</label>
           </div>
           </div>
           <div className="text-center">
-            <p className="mt-4 mb-4">Or</p>
+            <p className="mt-4 mb-4">Ou</p>
             <input type="file" onChange={(e)=>setImage(e.target.files[0])} id="file2" className="hidden"/>
-            <label htmlFor="file2" className="bg-blue-500 cursor-pointer px-4 p-2 hover:bg-blue-700 transition-all text-white rounded-lg">Choose A File</label>
+            <label htmlFor="file2" className="bg-blue-500 cursor-pointer px-4 p-2 hover:bg-blue-700 transition-all text-white rounded-lg">Escolha Um Arquivo</label>
           </div>
       </div>
     </div>
