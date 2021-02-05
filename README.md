@@ -8,8 +8,8 @@
   PREVIEW
 </h1>
 <p align="center"> 
-  <img src="https://user-images.githubusercontent.com/43641969/106993786-3e027c80-675a-11eb-89ff-78388da2463c.png" width="700" height="400"/>
-  <img src="https://user-images.githubusercontent.com/43641969/106994024-bf5a0f00-675a-11eb-9daa-f3b7a1d7f759.png" width="700" height="400"/>
+  <img src="https://user-images.githubusercontent.com/43641969/106994612-e9600100-675b-11eb-8f4c-c07cb6e92fb7.png" width="700" height="400"/>
+  <img src="https://user-images.githubusercontent.com/43641969/106994618-ebc25b00-675b-11eb-9df9-b8812e548a2e.png" width="700" height="400"/>
 </p>
 
 # BACKEND Technologies
