@@ -15,6 +15,7 @@
 # BACKEND Technologies
 
 - [x] Nextjs Api Routes
+- [x] Next Connect
 - [x] Multer
 
 # FRONTEND Technologies
